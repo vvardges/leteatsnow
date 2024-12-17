@@ -1,0 +1,81 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:import/typescript"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 12,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    }
+  },
+  "plugins": [
+    "react",
+    "react-hooks",
+    "jsx-a11y",
+    "import"
+  ],
+  "rules": {
+    "react/react-in-jsx-scope": "off", // For React 17 and above, not needed anymore
+    "react/prop-types": "off", // Use TypeScript for types
+    "react/jsx-filename-extension": [
+      "warn",
+      {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    ],
+    "import/prefer-default-export": "off", // If you prefer named exports
+    "react/jsx-uses-react": "off", // React 17 JSX Transform
+    "react/jsx-uses-vars": "error",
+    "no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_"
+      }
+    ],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn", // Warn about missing dependencies in useEffect
+    "jsx-a11y/anchor-is-valid": "off", // Custom handling of anchor elements (if using Next.js, for example)
+    "import/no-unresolved": "off", // If you have a custom webpack setup
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
+    "no-console": [
+      "warn",
+      { "allow": ["warn", "error"] }
+    ],
+    "prefer-const": "warn",
+    "no-var": "error",
+    "quotes": ["warn", "single"],
+    "semi": ["error", "always"]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
+}

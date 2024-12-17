@@ -20,10 +20,10 @@ const Video = () => {
                 return `https://cdn.jsdelivr.net/npm/@mediapipe/face_detection/${ file }`
             }
         } ),
-        camera: ( {
-                      mediaSrc,
-                      onFrame
-                  } ) => new Camera( mediaSrc, {
+        camera: ({
+              mediaSrc,
+              onFrame
+          }) => new Camera( mediaSrc, {
             onFrame,
             width: width,
             height: height
@@ -31,9 +31,8 @@ const Video = () => {
     } )
 
     function handleOnFaceDetected({
-                                      detections
-                                  }){
-        //console.log(detections[0].landmarks[3]);
+      detections
+  }){
         let newX;
         let newY;
         try{
@@ -50,13 +49,16 @@ const Video = () => {
 
     return (
         <Webcam
+            videoConstraints={{
+                aspectRatio: 0.6666666667
+            }}
             ref={ webcamRef }
+            mirrored={true}
             style={ {
                 width: `${width}px`,
                 height: `${height}px`,
                 zIndex: 0,
                 position: 'absolute',
-                transform: `rotateY(180deg)`,
             } }
         />
     )

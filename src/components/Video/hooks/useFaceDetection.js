@@ -3,7 +3,7 @@ import {
   useRef,
   useState,
   useCallback
-} from 'react'
+} from 'react';
 /**
  * Face detection hook component
  *
@@ -19,10 +19,10 @@ function useFaceDetection( {
   const [
     cameraManager,
     setCameraManager
-  ] = useState()
+  ] = useState();
 
-  const webcamRef = useRef( null )
-  const faceDetection = useRef( faceDetectionInitializer ).current
+  const webcamRef = useRef( null );
+  const faceDetection = useRef( faceDetectionInitializer ).current;
 
   /**
    * Handles face detection
@@ -32,18 +32,18 @@ function useFaceDetection( {
   const handleFaceDetection = useCallback( () => {
     faceDetection.setOptions( {
       ...options
-    } )
-    faceDetection.onResults( handleOnFaceDetected )
-  }, [ handleOnFaceDetected ] )
+    } );
+    faceDetection.onResults( handleOnFaceDetected );
+  }, [ handleOnFaceDetected ] );
 
   useEffect( () => {
     if (
       !webcamRef.current ||
       !webcamRef.current.video ||
       !camera
-    ) return
+    ) return;
 
-    const mediaSrc = webcamRef.current.video
+    const mediaSrc = webcamRef.current.video;
     setCameraManager( () => camera( {
       mediaSrc,
       width: mediaSrc.videoWidth,
@@ -51,28 +51,28 @@ function useFaceDetection( {
       onFrame: async () => {
         await faceDetection.send( {
           image: mediaSrc
-        } )
+        } );
       }
-    } ) )
-  }, [] )
+    } ) );
+  }, [] );
 
   useEffect( () => {
-    handleFaceDetection()
+    handleFaceDetection();
   }, [
     handleFaceDetection,
     handleOnFaceDetected
-  ] )
+  ] );
 
   useEffect( () => {
-    cameraManager?.start()
+    cameraManager?.start();
 
     // stops camera detection when component unmounts
     return () => {
-      cameraManager?.stop()
-    }
-  }, [ cameraManager ] )
+      cameraManager?.stop();
+    };
+  }, [ cameraManager ] );
 
-  return { webcamRef }
+  return { webcamRef };
 }
 
-export default useFaceDetection
+export default useFaceDetection;
