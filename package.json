@@ -1,6 +1,7 @@
 {
   "name": "react-canvas-bubbles",
   "version": "1.0.0",
+  "homepage": "https://vvardges.github.io/leteatsnow",
   "description": "An experiment using Canvas in React",
   "keywords": [
     "bubbles",
