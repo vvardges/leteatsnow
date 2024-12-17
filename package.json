@@ -20,13 +20,16 @@
     "react-webcam": "^7.2.0"
   },
   "devDependencies": {
-    "typescript": "4.9.5"
+    "typescript": "4.9.5",
+    "gh-pages": "^6.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "browserslist": [
     ">0.2%",
