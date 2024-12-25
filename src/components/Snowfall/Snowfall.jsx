@@ -1,8 +1,9 @@
-import React, { useEffect, useRef } from "react";
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {useAppContext} from "../../Context";
 
 import snowImg from "./snow.png";
 import bombImg from "./bomb.png";
+import fireImg from "./fire.gif";
 import {useGetDimensions} from "../../hooks/useGetDimensins";
 
 // load bubbleImg
@@ -12,12 +13,27 @@ SnowImgObj.src = snowImg;
 const BombImgObj = new Image(100, 100);
 BombImgObj.src = bombImg;
 
+const FireImgObj = new Image(100, 100);
+FireImgObj.src = fireImg;
+
 const SnowfallCanvas = () => {
     const canvasRef = useRef(null);
+
     const {mouthCoordinates, onParticleDelete} = useAppContext();
 
+    const handleParticleDelete = (type) => {
+        if(canvasRef.mouthIsLocked) return;
+
+        if(type === "loss") canvasRef.mouthIsLocked = true;
+        setTimeout(() => {
+            canvasRef.mouthIsLocked = false;
+        }, 4000);
+
+        onParticleDelete(type);
+    };
+
+
     useEffect(() => {
-        //console.log(mouthCoordinates);
         canvasRef.mouthCoordinates = mouthCoordinates;
     }, [mouthCoordinates]);
 
@@ -41,8 +57,8 @@ const SnowfallCanvas = () => {
                 r: 50, // radius
                 d: Math.random() * mp, // density
                 type: particles.length % 7 === 0 ?  "loss" : "point"
-            })
-        }
+            });
+        };
 
         // Create particles
         for (let i = 0; i < mp; i++) {
@@ -58,9 +74,12 @@ const SnowfallCanvas = () => {
             ctx.beginPath();
 
             particles.forEach((p) => {
-                ctx.moveTo(p.x, p.y);
                 ctx.drawImage(p.type === "point" ? SnowImgObj : BombImgObj, p.x, p.y, p.r, p.r);
             });
+
+            if(canvasRef.mouthIsLocked) {
+                ctx.drawImage(FireImgObj ,canvasRef.mouthCoordinates.x - 50, canvasRef.mouthCoordinates.y - 50, 100, 100);
+            }
 
             ctx.fill();
             updateParticles(particles, W, H, angle);
@@ -75,8 +94,8 @@ const SnowfallCanvas = () => {
                 p.x += Math.sin(angle) * 2;
 
                 const {x, y} = canvasRef.mouthCoordinates;
-                if (p.y > y-50 && p.y < y+50 && p.x > x-50 && p.x < x+50) {
-                    onParticleDelete(p.type);
+                if (!canvasRef.mouthIsLocked && p.y > y-50 && p.y < y+50 && p.x > x-50 && p.x < x+50) {
+                    handleParticleDelete(p.type);
                     createParticle();
                     delete particles[i];
                 }

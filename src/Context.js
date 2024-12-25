@@ -1,4 +1,5 @@
 import {createContext, useState, useContext, useEffect} from 'react';
+import {useGetDimensions} from './hooks/useGetDimensins';
 
 const camWidth = 1280;
 const camHeight = 1024;
@@ -6,7 +7,8 @@ const camHeight = 1024;
 const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
-  const [coordinates, setCoordinates] = useState({x: camWidth, y: camHeight});
+  const windowDimensions = useGetDimensions();
+  const [coordinates, setCoordinates] = useState({x: windowDimensions.width, y: windowDimensions.height});
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [score, setScore] = useState(0);

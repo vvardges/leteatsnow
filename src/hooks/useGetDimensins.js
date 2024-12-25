@@ -2,17 +2,17 @@ import {useEffect, useState} from 'react';
 
 export const useGetDimensions = () => {
   const [windowDimensions, setWindowDimensions] = useState({
-    width: 375,
-    height: 667
+    width: 500,
+    height: 500
   });
 
   useEffect(() => {
     // Handle resizing of window
     const handleResize = () => {
-      setWindowDimensions({
-        width: 375,
-        height: 667
-      });
+      // setWindowDimensions({
+      //   width: 1000,
+      //   height: 500
+      // });
     };
 
     window.addEventListener('resize', handleResize);
