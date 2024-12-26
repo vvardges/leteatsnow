@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useAppContext} from "../../Context";
 
 import snowImg from "./snow.png";
