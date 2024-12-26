@@ -1,19 +1,18 @@
-import { useGetDimensions } from '../hooks/useGetDimensins';
 import { Link } from 'react-router';
+import Layout from '../components/Layout';
 
 const Home = () => {
-  const { width, height } = useGetDimensions();
   return (
-    <div style={{ position: 'relative', width, margin: '0 auto', height }}>
-      <div style={{ background: 'blue', height: '100%', fontSize: 30 }}>
+      <Layout>
         Let eat snow <br />
-        <Link to="/play">Play</Link>
-        <br />
-        <Link to="/leaderboard">Leaderboard</Link>
+        <div>
+            <Link to="/play">Play</Link>
+            <br />
+            <Link to="/leaderboard">Leaderboard</Link>
+        </div>
         <br />
         @Vke
-      </div>
-    </div>
+      </Layout>
   );
 };
 
