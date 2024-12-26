@@ -21,3 +21,7 @@ html {
   align-items: center;
   height: 100%;
 }
+
+a {
+  color: white;
+}
