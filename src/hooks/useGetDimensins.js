@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 
 const getDimension = () => {
   const w = window.innerWidth;
@@ -10,7 +10,7 @@ export const useGetDimensions = () => {
   const d = getDimension();
   const [windowDimensions, setWindowDimensions] = useState({
     width: d,
-    height: d
+    height: d,
   });
 
   useEffect(() => {

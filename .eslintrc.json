@@ -20,12 +20,7 @@
       "jsx": true
     }
   },
-  "plugins": [
-    "react",
-    "react-hooks",
-    "jsx-a11y",
-    "import"
-  ],
+  "plugins": ["react", "react-hooks", "jsx-a11y", "import"],
   "rules": {
     "react/react-in-jsx-scope": "off", // For React 17 and above, not needed anymore
     "react/prop-types": "off", // Use TypeScript for types
@@ -59,10 +54,7 @@
         "tsx": "never"
       }
     ],
-    "no-console": [
-      "warn",
-      { "allow": ["warn", "error"] }
-    ],
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
     "prefer-const": "warn",
     "no-var": "error",
     "quotes": ["warn", "single"],

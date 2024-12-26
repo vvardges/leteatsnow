@@ -1,23 +1,26 @@
-import {createContext, useState, useContext, useEffect} from 'react';
-import {useGetDimensions} from './hooks/useGetDimensins';
-import {useNavigate} from 'react-router';
+import { createContext, useState, useContext, useEffect } from 'react';
+import { useGetDimensions } from './hooks/useGetDimensins';
+import { useNavigate } from 'react-router';
 
 // Create a Context
 const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
   const windowDimensions = useGetDimensions();
-  const [coordinates, setCoordinates] = useState({x: windowDimensions.width, y: windowDimensions.height});
+  const [coordinates, setCoordinates] = useState({
+    x: windowDimensions.width,
+    y: windowDimensions.height,
+  });
 
   const [score, setScore] = useState(0);
-  const addScore = () => setScore(prev => prev + 1);
+  const addScore = () => setScore((prev) => prev + 1);
 
-  const [lives, setLives ] = useState(3);
-  const subtractLive = () => setLives(prev => prev - 1);
+  const [lives, setLives] = useState(3);
+  const subtractLive = () => setLives((prev) => prev - 1);
 
   const [level, setLevel] = useState(1);
   useEffect(() => {
-    if(score) setLevel(prev => prev + 1);
+    if (score) setLevel((prev) => prev + 1);
   }, [score]);
 
   const onStartGame = () => {
@@ -32,17 +35,17 @@ export const ContextProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if(lives < 1) {
+    if (lives < 1) {
       stopGame();
     }
   }, [lives]);
 
   const onParticleDelete = (type) => {
     switch (type) {
-    case 'point':
-      return addScore();
-    case 'loss':
-      return subtractLive();
+      case 'point':
+        return addScore();
+      case 'loss':
+        return subtractLive();
     }
   };
 
@@ -56,11 +59,7 @@ export const ContextProvider = ({ children }) => {
     onStartGame,
   };
 
-  return (
-    <Context.Provider value={value}>
-      {children}
-    </Context.Provider>
-  );
+  return <Context.Provider value={value}>{children}</Context.Provider>;
 };
 
 // Custom hook for using the context
