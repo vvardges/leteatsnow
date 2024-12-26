@@ -19,7 +19,7 @@ FireImgObj.src = fireImg;
 const SnowfallCanvas = () => {
     const canvasRef = useRef(null);
 
-    const {mouthCoordinates, onParticleDelete} = useAppContext();
+    const {mouthCoordinates, onParticleDelete, score} = useAppContext();
 
     const handleParticleDelete = (type) => {
         if(canvasRef.mouthIsLocked) return;
@@ -32,6 +32,9 @@ const SnowfallCanvas = () => {
         onParticleDelete(type);
     };
 
+    useEffect(() => {
+        canvasRef.score = score;
+    }, [score]);
 
     useEffect(() => {
         canvasRef.mouthCoordinates = mouthCoordinates;
@@ -90,8 +93,10 @@ const SnowfallCanvas = () => {
         const updateParticles = (particles, W, H, angle) => {
             particles.forEach((p, i) => {
                 // Updating X and Y coordinates
-                p.y += Math.cos(angle + p.d) + 1 + p.r / 10;
-                p.x += Math.sin(angle) * 2;
+                const speed = Math.ceil(canvasRef.score/100) * 0.1 + 1; // Control the overall speed
+                p.y += (Math.cos(angle + p.d) + 1 + p.r / 10) * speed;
+                p.x += Math.sin(angle) * speed;
+
 
                 const {x, y} = canvasRef.mouthCoordinates;
                 if (!canvasRef.mouthIsLocked && p.y > y-50 && p.y < y+50 && p.x > x-50 && p.x < x+50) {

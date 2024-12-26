@@ -1,8 +1,6 @@
 import {createContext, useState, useContext, useEffect} from 'react';
 import {useGetDimensions} from './hooks/useGetDimensins';
 
-const camWidth = 1280;
-const camHeight = 1024;
 // Create a Context
 const Context = createContext();
 
@@ -16,6 +14,11 @@ export const ContextProvider = ({ children }) => {
 
   const [lives, setLives ] = useState(3);
   const subtractLive = () => setLives(prev => prev - 1);
+
+  const [level, setLevel] = useState(1);
+  useEffect(() => {
+    if(score) setLevel(prev => prev + 1);
+  }, [score]);
 
   const startGame = () => {
     setLives(3);
@@ -47,6 +50,7 @@ export const ContextProvider = ({ children }) => {
     setMouthCoordinates: setCoordinates,
     onParticleDelete,
     score,
+    level,
     lives,
     isPlaying,
     onPlay: startGame
