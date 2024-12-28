@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef, useState } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { useAppContext } from '../../Context';
 
 import snowIcon from './snow.svg';
