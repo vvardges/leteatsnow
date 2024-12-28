@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { memo, useEffect, useRef, useState } from 'react';
 import { useAppContext } from '../../Context';
 
 import snowIcon from './snow.svg';
@@ -17,7 +17,6 @@ MouthImgObj.src = mouthIcon;
 
 const Snowfall = () => {
   const canvasRef = useRef(null);
-
   const { mouthCoordinates, onParticleDelete, score } = useAppContext();
 
   let timeoutId;
@@ -106,6 +105,9 @@ const Snowfall = () => {
 
     // Function to update particle positions
     const updateParticles = (particles, W, H, angle) => {
+      if(canvasRef.paused) {
+        return;
+      }
       particles.forEach((p, i) => {
         // Updating X and Y coordinates
         const speed = Math.ceil(canvasRef.score / 100) * 0.1 + 1; // Control the overall speed
@@ -142,10 +144,11 @@ const Snowfall = () => {
 
   return (
     <canvas
+      onClick={() => canvasRef.paused = !canvasRef.paused}
       ref={canvasRef}
       style={{ position: 'absolute', zIndex: 1 }}
     ></canvas>
   );
 };
 
-export default Snowfall;
+export default memo(Snowfall);
