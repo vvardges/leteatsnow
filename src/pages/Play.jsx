@@ -1,10 +1,10 @@
 import Score from '../components/Score';
 import Lives from '../components/Lives';
 import Video from '../components/Video/Video';
-import SnowfallCanvas from '../components/Snowfall/Snowfall';
+import Snowfall from '../components/Snowfall';
 import { useEffect } from 'react';
 import { useAppContext } from '../Context';
-import Layout from '../components/Layout';
+import Game from '../components/Game';
 
 const Play = () => {
   const { onStartGame } = useAppContext();
@@ -12,12 +12,12 @@ const Play = () => {
     onStartGame();
   }, []);
   return (
-    <Layout>
+    <Game width={500} height={500}>
       <Score />
       <Lives />
       <Video />
-      <SnowfallCanvas />
-    </Layout>
+      <Snowfall />
+    </Game>
   );
 };
 

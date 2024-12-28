@@ -1,7 +1,7 @@
-import { RefObject } from 'react';
 import { FaceDetection, Options, Results } from '@mediapipe/face_detection';
 import { Camera } from '@mediapipe/camera_utils';
 import Webcam from 'react-webcam';
+import { RefObject } from 'react';
 
 export type FaceDetectionResults = Results;
 export type FaceDetectionType = {

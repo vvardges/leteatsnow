@@ -1,31 +1,33 @@
 import { useEffect, useRef } from 'react';
 import { useAppContext } from '../../Context';
 
-import snowImg from './snow.png';
-import bombImg from './bomb.png';
-import fireImg from './fire.gif';
+import snowIcon from './snow.svg';
+import iceIcon from './ice.svg';
+import mouthIcon from './mouth.png';
 import { useGetDimensions } from '../../hooks/useGetDimensins';
 
-// load bubbleImg
 const SnowImgObj = new Image(100, 100);
-SnowImgObj.src = snowImg;
+SnowImgObj.src = snowIcon;
 
-const BombImgObj = new Image(100, 100);
-BombImgObj.src = bombImg;
+const LoseImgObj = new Image(100, 100);
+LoseImgObj.src = iceIcon;
 
-const FireImgObj = new Image(100, 100);
-FireImgObj.src = fireImg;
+const MouthImgObj = new Image(100, 100);
+MouthImgObj.src = mouthIcon;
 
-const SnowfallCanvas = () => {
+const Snowfall = () => {
   const canvasRef = useRef(null);
 
   const { mouthCoordinates, onParticleDelete, score } = useAppContext();
 
+  let timeoutId;
   const handleParticleDelete = (type) => {
     if (canvasRef.mouthIsLocked) return;
 
     if (type === 'loss') canvasRef.mouthIsLocked = true;
-    setTimeout(() => {
+
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => {
       canvasRef.mouthIsLocked = false;
     }, 4000);
 
@@ -78,7 +80,7 @@ const SnowfallCanvas = () => {
 
       particles.forEach((p) => {
         ctx.drawImage(
-          p.type === 'point' ? SnowImgObj : BombImgObj,
+          p.type === 'point' ? SnowImgObj : LoseImgObj,
           p.x,
           p.y,
           p.r,
@@ -87,8 +89,9 @@ const SnowfallCanvas = () => {
       });
 
       if (canvasRef.mouthIsLocked) {
+        ctx.globalCompositeOperation = 'destination-over';
         ctx.drawImage(
-          FireImgObj,
+          MouthImgObj,
           canvasRef.mouthCoordinates.x - 50,
           canvasRef.mouthCoordinates.y - 50,
           100,
@@ -145,4 +148,4 @@ const SnowfallCanvas = () => {
   );
 };
 
-export default SnowfallCanvas;
+export default Snowfall;

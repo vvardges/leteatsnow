@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+
 body {
   margin: 0;
-  background: white;
+  background: #7dc8e7;
 }
 
 html {
@@ -9,11 +11,17 @@ html {
   background-position: center;
   background-attachment: fixed;
   background-size: cover;
+
+  font-family: 'Orbitron', serif;
+  font-optical-sizing: auto;
+  font-weight: normal;
+  font-style: normal;
 }
 
 body,
 html {
   height: 100vh;
+  width: 100vw;
 }
 
 #root {

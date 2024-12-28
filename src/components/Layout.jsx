@@ -1,12 +1,20 @@
-import {useGetDimensions} from '../hooks/useGetDimensins';
+import { styled } from 'styled-components';
 
-const Layout = ({children}) => {
-    const { width, height } = useGetDimensions();
-  return (
-      <div style={{position: 'relative', width, height, fontSize: '33px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#3c7eab'}}>
-          {children}
-      </div>
-  );
+const Wrapper = styled.div`
+  position: relative;
+  max-width: 500px;
+  max-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #7dc8e7;
+  padding: 20px;
+  box-sizing: border-box;
+  align-items: center;
+`;
+
+const Layout = ({ children }) => {
+  return <Wrapper>{children}</Wrapper>;
 };
 
 export default Layout;

@@ -1,18 +1,21 @@
-import { Link } from 'react-router';
 import Layout from '../components/Layout';
+import Button from '../components/Button';
+import Box from '../components/Box';
+import { useNavigate } from 'react-router';
 
 const Home = () => {
+  const navigate = useNavigate();
   return (
-      <Layout>
-        Let eat snow <br />
-        <div>
-            <Link to="/play">Play</Link>
-            <br />
-            <Link to="/leaderboard">Leaderboard</Link>
-        </div>
-        <br />
+    <Layout>
+      <Box gap={2}>
+        <h1>Let eat snow!</h1>
+        <Box>
+          <Button onClick={() => navigate('/play')}>Play</Button>
+          <Button>Leaderboard</Button>
+        </Box>
         @Vke
-      </Layout>
+      </Box>
+    </Layout>
   );
 };
 
