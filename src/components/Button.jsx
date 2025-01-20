@@ -12,10 +12,18 @@ const Wrapper = styled.button`
   font-weight: bold;
   width: 186px;
   box-shadow: 0 4px 0 #6d9ac3;
+    
+    &:disabled {
+        background-color: #eee;
+    }
 `;
 
-const Button = ({ children, onClick }) => {
-  return <Wrapper onClick={onClick}>{children}</Wrapper>;
+const Button = ({ children, onClick, ...props }) => {
+  return (
+    <Wrapper onClick={onClick} {...props}>
+      {children}
+    </Wrapper>
+  );
 };
 
 export default Button;

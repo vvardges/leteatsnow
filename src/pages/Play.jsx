@@ -9,7 +9,7 @@ import { useGetDimensions } from '../hooks/useGetDimensins';
 
 const Play = () => {
   const { onStartGame } = useAppContext();
-  const {width, height} = useGetDimensions();
+  const { width, height } = useGetDimensions();
   useEffect(() => {
     onStartGame();
   }, []);

@@ -105,7 +105,7 @@ const Snowfall = () => {
 
     // Function to update particle positions
     const updateParticles = (particles, W, H, angle) => {
-      if(canvasRef.paused) {
+      if (canvasRef.paused) {
         return;
       }
       particles.forEach((p, i) => {
@@ -144,7 +144,7 @@ const Snowfall = () => {
 
   return (
     <canvas
-      onClick={() => canvasRef.paused = !canvasRef.paused}
+      onClick={() => (canvasRef.paused = !canvasRef.paused)}
       ref={canvasRef}
       style={{ position: 'absolute', zIndex: 1 }}
     ></canvas>

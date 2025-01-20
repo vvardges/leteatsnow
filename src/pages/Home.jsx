@@ -11,7 +11,7 @@ const Home = () => {
         <h1>Let eat snow!</h1>
         <Box>
           <Button onClick={() => navigate('/play')}>Play</Button>
-          <Button>Leaderboard</Button>
+          <Button onClick={() => navigate('/leaderboard')}>Leaderboard</Button>
         </Box>
         @Vke
       </Box>
