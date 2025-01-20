@@ -113,7 +113,7 @@ const Snowfall = ({ canvasRef }) => {
       }
       particles.forEach((p, i) => {
         // Updating X and Y coordinates
-        const speed = Math.ceil(canvasRef.score / 100) * 0.01 + 0.7; // Control the overall speed
+        const speed = Math.ceil(canvasRef.score / 100) * 0.01 + 0.5; // Control the overall speed
         p.y += (Math.cos(angle + p.d) + 1 + p.r / 10) * speed;
         p.x += Math.sin(angle) * speed;
 
