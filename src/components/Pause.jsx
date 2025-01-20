@@ -20,12 +20,13 @@ const Wrapper = styled.div`
 `;
 
 const Pause = () => {
-  const { score, onResume } = useAppContext();
+  const { onResume } = useAppContext();
   const navigate = useNavigate();
+
   return (
     <Wrapper>
       <Box>
-        <h2>Your Score: {score}</h2>
+        <h2>Let eat snow!</h2>
         <Button onClick={onResume}>Resume</Button>
         <Button onClick={() => navigate('/')}>Home</Button>
       </Box>

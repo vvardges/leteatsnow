@@ -1,4 +1,4 @@
-import { memo, useEffect, useRef } from 'react';
+import { memo, useEffect } from 'react';
 import { useAppContext } from '../../Context';
 
 import snowIcon from './snow.svg';
@@ -15,10 +15,8 @@ LoseImgObj.src = iceIcon;
 const MouthImgObj = new Image(100, 100);
 MouthImgObj.src = mouthIcon;
 
-const Snowfall = () => {
-  const canvasRef = useRef(null);
-  const { mouthCoordinates, onParticleDelete, score, onPauseGame, paused } =
-    useAppContext();
+const Snowfall = ({ canvasRef }) => {
+  const { onParticleDelete, score, onPauseGame, paused } = useAppContext();
 
   let timeoutId;
   const handleParticleDelete = (type) => {
@@ -45,10 +43,6 @@ const Snowfall = () => {
   useEffect(() => {
     canvasRef.score = score;
   }, [score]);
-
-  useEffect(() => {
-    canvasRef.mouthCoordinates = mouthCoordinates;
-  }, [mouthCoordinates]);
 
   const windowDimensions = useGetDimensions();
 
@@ -119,9 +113,11 @@ const Snowfall = () => {
       }
       particles.forEach((p, i) => {
         // Updating X and Y coordinates
-        const speed = Math.ceil(canvasRef.score / 100) * 0.1 + 1; // Control the overall speed
+        const speed = Math.ceil(canvasRef.score / 100) * 0.01 + 0.7; // Control the overall speed
         p.y += (Math.cos(angle + p.d) + 1 + p.r / 10) * speed;
         p.x += Math.sin(angle) * speed;
+
+        if (!canvasRef.mouthCoordinates) return;
 
         const { x, y } = canvasRef.mouthCoordinates;
         if (
@@ -144,11 +140,16 @@ const Snowfall = () => {
       });
     };
 
-    // Initial call to draw
-    const intervalId = setInterval(draw, 50);
+    let animationFrameId;
 
-    // Cleanup the interval when the component unmounts
-    return () => clearInterval(intervalId);
+    const animate = () => {
+      draw();
+      animationFrameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
+    return () => cancelAnimationFrame(animationFrameId);
   }, [windowDimensions]);
 
   return (

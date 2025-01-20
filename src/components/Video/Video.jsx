@@ -3,11 +3,9 @@ import { FaceDetection } from '@mediapipe/face_detection';
 import Webcam from 'react-webcam';
 
 import useFaceDetection from './hooks/useFaceDetection';
-import { useAppContext } from '../../Context';
 import { useGetDimensions } from '../../hooks/useGetDimensins';
 
-const Video = () => {
-  const { setMouthCoordinates } = useAppContext();
+const Video = ({ canvasRef }) => {
   const windowDimensions = useGetDimensions();
   const { width, height } = windowDimensions;
 
@@ -23,7 +21,10 @@ const Video = () => {
       newY = windowDimensions.height;
     }
     //console.log(camWidth*newX/100)
-    setMouthCoordinates({ x: (width * newX) / 100, y: (height * newY) / 100 });
+    canvasRef.mouthCoordinates = {
+      x: (width * newX) / 100,
+      y: (height * newY) / 100,
+    };
   };
 
   const { webcamRef } = useFaceDetection({

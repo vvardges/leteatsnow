@@ -1,17 +1,10 @@
 import { createContext, useState, useContext, useEffect } from 'react';
-import { useGetDimensions } from './hooks/useGetDimensins';
 import { useNavigate } from 'react-router';
 
 // Create a Context
 const Context = createContext();
 
 export const ContextProvider = ({ children }) => {
-  const windowDimensions = useGetDimensions();
-  const [coordinates, setCoordinates] = useState({
-    x: windowDimensions.width,
-    y: windowDimensions.height,
-  });
-
   const [score, setScore] = useState(0);
   const addScore = () => setScore((prev) => prev + 1);
 
@@ -61,8 +54,6 @@ export const ContextProvider = ({ children }) => {
   };
 
   const value = {
-    mouthCoordinates: coordinates,
-    setMouthCoordinates: setCoordinates,
     onParticleDelete,
     score,
     level,
