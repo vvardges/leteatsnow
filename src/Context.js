@@ -70,7 +70,7 @@ export const ContextProvider = ({ children }) => {
     onStartGame,
     onPauseGame,
     onResume,
-    paused
+    paused,
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

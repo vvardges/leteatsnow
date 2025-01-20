@@ -17,7 +17,8 @@ MouthImgObj.src = mouthIcon;
 
 const Snowfall = () => {
   const canvasRef = useRef(null);
-  const { mouthCoordinates, onParticleDelete, score, onPauseGame, paused } = useAppContext();
+  const { mouthCoordinates, onParticleDelete, score, onPauseGame, paused } =
+    useAppContext();
 
   let timeoutId;
   const handleParticleDelete = (type) => {
