@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Play from './pages/Play';
 import Results from './pages/Results';
 import Leaderboard from './pages/Leaderboard';
+import Hints from './pages/Hints';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/play" element={<Play />} />
+        <Route path="/hints" element={<Hints />} />
         <Route path="/results" element={<Results />} />
         <Route path="/leaderboard" element={<Leaderboard />} />
       </Routes>

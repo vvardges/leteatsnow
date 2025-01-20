@@ -29,7 +29,7 @@ const Results = () => {
             </li>
           ))}
         </ol>
-        <Button onClick={() => navigate('/')}>Home</Button>
+        <Button onClick={() => navigate('/')}>Back</Button>
       </Box>
     </Layout>
   );

@@ -12,6 +12,7 @@ const Home = () => {
         <Box>
           <Button onClick={() => navigate('/play')}>Play</Button>
           <Button onClick={() => navigate('/leaderboard')}>Leaderboard</Button>
+          <Button onClick={() => navigate('/hints')}>Hints</Button>
         </Box>
         @Vke
       </Box>
