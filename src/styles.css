@@ -5,6 +5,10 @@ body {
   background: #7dc8e7;
 }
 
+h2 {
+  margin: 0;
+}
+
 html {
   background-color: black;
   background-repeat: no-repeat;

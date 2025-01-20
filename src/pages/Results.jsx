@@ -1,14 +1,18 @@
 import { useAppContext } from '../Context';
-import { Link } from 'react-router';
 import Layout from '../components/Layout';
+import Button from '../components/Button';
+import Input from '../components/Input';
+import Box from '../components/Box';
 
 const Results = () => {
   const { score } = useAppContext();
   return (
     <Layout>
-      <h1>{score}</h1>
-      <input type="text" placeholder="your name" />
-      <Link to={'/'}>submit</Link>
+      <Box gap={2}>
+        <h2>Your Score: {score}</h2>
+        <Input type="text" placeholder="Enter Nickname" />
+        <Button to={'/'}>Submit</Button>
+      </Box>
     </Layout>
   );
 };
