@@ -18,6 +18,8 @@ export const ContextProvider = ({ children }) => {
   const [lives, setLives] = useState(3);
   const subtractLive = () => setLives((prev) => prev - 1);
 
+  const [paused, setPaused] = useState(false);
+
   const [level, setLevel] = useState(1);
   useEffect(() => {
     if (score) setLevel((prev) => prev + 1);
@@ -26,12 +28,21 @@ export const ContextProvider = ({ children }) => {
   const onStartGame = () => {
     setLives(3);
     setScore(0);
+    setPaused(false);
   };
 
   const navigate = useNavigate();
 
   const stopGame = () => {
     navigate('/results');
+  };
+
+  const onPauseGame = () => {
+    setPaused(true);
+  };
+
+  const onResume = () => {
+    setPaused(false);
   };
 
   useEffect(() => {
@@ -57,6 +68,9 @@ export const ContextProvider = ({ children }) => {
     level,
     lives,
     onStartGame,
+    onPauseGame,
+    onResume,
+    paused
   };
 
   return <Context.Provider value={value}>{children}</Context.Provider>;

@@ -23,7 +23,7 @@ const Results = () => {
             <li key={index}>
               {`
                 ${name}
-                ${'.'.repeat((20 - name.length)*3)}
+                ${'.'.repeat((20 - name.length) * 3)}
                 ${score}
               `}
             </li>

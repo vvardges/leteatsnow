@@ -12,10 +12,10 @@ const Wrapper = styled.button`
   font-weight: bold;
   width: 186px;
   box-shadow: 0 4px 0 #6d9ac3;
-    
-    &:disabled {
-        background-color: #eee;
-    }
+
+  &:disabled {
+    background-color: #eee;
+  }
 `;
 
 const Button = ({ children, onClick, ...props }) => {

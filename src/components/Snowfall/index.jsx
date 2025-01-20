@@ -17,7 +17,7 @@ MouthImgObj.src = mouthIcon;
 
 const Snowfall = () => {
   const canvasRef = useRef(null);
-  const { mouthCoordinates, onParticleDelete, score } = useAppContext();
+  const { mouthCoordinates, onParticleDelete, score, onPauseGame, paused } = useAppContext();
 
   let timeoutId;
   const handleParticleDelete = (type) => {
@@ -32,6 +32,14 @@ const Snowfall = () => {
 
     onParticleDelete(type);
   };
+
+  const handlePause = () => {
+    onPauseGame();
+  };
+
+  useEffect(() => {
+    canvasRef.paused = paused;
+  }, [paused]);
 
   useEffect(() => {
     canvasRef.score = score;
@@ -144,10 +152,10 @@ const Snowfall = () => {
 
   return (
     <canvas
-      onClick={() => (canvasRef.paused = !canvasRef.paused)}
+      onClick={handlePause}
       ref={canvasRef}
       style={{ position: 'absolute', zIndex: 1 }}
-    ></canvas>
+    />
   );
 };
 
