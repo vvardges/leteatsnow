@@ -16,6 +16,7 @@
     "@mediapipe/tasks-vision": "^0.10.19",
     "firebase": "^11.2.0",
     "lodash": "4.17.21",
+    "next": "^15.1.6",
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-router": "^7.1.1",
@@ -26,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",
+    "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",

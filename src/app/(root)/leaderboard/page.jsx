@@ -1,12 +1,12 @@
-import Layout from '../components/Layout';
+'use client';
+
+import Layout from '../../../components/Layout';
 import { useEffect, useState } from 'react';
-import { getTopScores } from '../services';
-import Box from '../components/Box';
-import Button from '../components/Button';
-import { useNavigate } from 'react-router';
+import { getTopScores } from '../../../services';
+import Box from '../../../components/Box';
+import Button from '../../../components/Button';
 
 const Results = () => {
-  const navigate = useNavigate();
   const [scores, setScores] = useState([]);
   useEffect(() => {
     getTopScores().then((scores) => setScores(scores));
@@ -29,7 +29,7 @@ const Results = () => {
             </li>
           ))}
         </ol>
-        <Button onClick={() => navigate('/')}>Back</Button>
+        <Button href="/">Back</Button>
       </Box>
     </Layout>
   );

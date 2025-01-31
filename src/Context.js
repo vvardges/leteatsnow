@@ -1,5 +1,5 @@
 import { createContext, useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router';
+import { useRouter } from 'next/navigation';
 
 // Create a Context
 const Context = createContext();
@@ -24,10 +24,10 @@ export const ContextProvider = ({ children }) => {
     setPaused(false);
   };
 
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const stopGame = () => {
-    navigate('/results');
+    router.push('/results');
   };
 
   const onPauseGame = () => {

@@ -1,6 +1,9 @@
-import { styled } from 'styled-components';
+'use client';
 
-const Wrapper = styled.button`
+import { styled } from 'styled-components';
+import Link from 'next/link';
+
+const Wrapper = styled(Link)`
   background-color: #00622d;
   color: white;
   border: none;
@@ -12,18 +15,16 @@ const Wrapper = styled.button`
   font-weight: bold;
   width: 186px;
   box-shadow: 0 4px 0 #6d9ac3;
+  text-decoration: none;
+  text-align: center;
 
   &:disabled {
     background-color: #eee;
   }
 `;
 
-const Button = ({ children, onClick, ...props }) => {
-  return (
-    <Wrapper onClick={onClick} {...props}>
-      {children}
-    </Wrapper>
-  );
+const Button = ({ children, ...props }) => {
+  return <Wrapper {...props}>{children}</Wrapper>;
 };
 
 export default Button;

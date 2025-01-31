@@ -1,0 +1,40 @@
+'use client';
+
+import { useAppContext } from '../../../Context';
+import Layout from '../../../components/Layout';
+import Button from '../../../components/Button';
+import Input from '../../../components/Input';
+import Box from '../../../components/Box';
+import { useState } from 'react';
+import { submitScore } from '../../../services';
+import { useRouter } from 'next/navigation';
+
+const Results = () => {
+  const router = useRouter();
+  const { score } = useAppContext();
+  const [name, setName] = useState('');
+
+  const handleSubmit = () => {
+    submitScore(name, score);
+    router.push('/leaderboard');
+  };
+
+  return (
+    <Layout>
+      <Box gap={2}>
+        <h2>Your Score: {score}</h2>
+        <Input
+          type="text"
+          placeholder="Enter Nickname"
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+        />
+        <Button disabled={!name} onClick={handleSubmit} href="/">
+          Submit
+        </Button>
+      </Box>
+    </Layout>
+  );
+};
+
+export default Results;
