@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
-
 body {
   margin: 0;
   background: #7dc8e7;
@@ -28,14 +26,24 @@ html {
   width: 100vw;
 }
 
-#root {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
+main {
+    width: 100dvw;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 a {
-  color: white;
+    text-decoration: none;
+    background-color: #00622d;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    width: 186px;
+    box-shadow: 0 4px 0 #6d9ac3;
 }

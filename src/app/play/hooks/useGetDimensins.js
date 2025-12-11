@@ -1,19 +1,19 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 
-const getDimension = () => {
-  const w = window.innerWidth;
-  const h = window.innerHeight;
-  return Math.min(Math.min(w, h), 500);
-};
-
 export const useGetDimensions = () => {
-  const d = getDimension();
   const [windowDimensions, setWindowDimensions] = useState({
-    width: d,
-    height: d,
+    width: 500,
+    height: 500,
   });
 
   useEffect(() => {
+    const getDimension = () => {
+      const w = window.innerWidth;
+      const h = window.innerHeight;
+      return Math.min(Math.min(w, h), 500);
+    };
     // Handle resizing of window
     const handleResize = () => {
       const d = getDimension();

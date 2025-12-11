@@ -1,20 +1,22 @@
-import { useAppContext } from '../Context';
-import Layout from '../components/Layout';
-import Button from '../components/Button';
-import Input from '../components/Input';
-import Box from '../components/Box';
+'use client';
+
+import { useAppContext } from '../context';
+import Layout from '../../components/Layout';
+import Button from '../../components/Button';
+import Input from '../../components/Input';
+import Box from '../../components/Box';
 import { useState } from 'react';
 import { submitScore } from '../services';
-import { useNavigate } from 'react-router';
+import { useRouter } from 'next/navigation';
 
-const Results = () => {
-  const navigate = useNavigate();
+const Page = () => {
+  const { push } = useRouter();
   const { score } = useAppContext();
   const [name, setName] = useState('');
 
   const handleSubmit = () => {
     submitScore(name, score);
-    navigate('/leaderboard');
+    push('/leaderboard');
   };
 
   return (
@@ -35,4 +37,4 @@ const Results = () => {
   );
 };
 
-export default Results;
+export default Page;

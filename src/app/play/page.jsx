@@ -1,14 +1,16 @@
-import Score from '../components/Score';
-import Lives from '../components/Lives';
-import Video from '../components/Video/Video';
-import Snowfall from '../components/Snowfall';
-import { useEffect, useRef } from 'react';
-import { useAppContext } from '../Context';
-import Game from '../components/Game';
-import { useGetDimensions } from '../hooks/useGetDimensins';
-import Pause from '../components/Pause';
+'use client';
 
-const Play = () => {
+import Score from './components/Score';
+import Lives from './components/Lives';
+import Video from './components/Video/Video';
+import Snowfall from './components/Snowfall';
+import { useEffect, useRef } from 'react';
+import { useAppContext } from '../context';
+import Game from './components/Game';
+import { useGetDimensions } from './hooks/useGetDimensins';
+import Pause from './components/Pause';
+
+const Page = () => {
   const { onStartGame, paused } = useAppContext();
   const { width, height } = useGetDimensions();
   useEffect(() => {
@@ -26,4 +28,4 @@ const Play = () => {
   );
 };
 
-export default Play;
+export default Page;

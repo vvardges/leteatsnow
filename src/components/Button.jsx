@@ -1,28 +1,25 @@
-import { styled } from 'styled-components';
-
-const Wrapper = styled.button`
-  background-color: #00622d;
-  color: white;
-  border: none;
-  padding: 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 20px;
-  font-family: 'Orbitron', serif;
-  font-weight: bold;
-  width: 186px;
-  box-shadow: 0 4px 0 #6d9ac3;
-
-  &:disabled {
-    background-color: #eee;
-  }
-`;
-
-const Button = ({ children, onClick, ...props }) => {
+const Button = ({ children, onClick, disabled, ...props }) => {
   return (
-    <Wrapper onClick={onClick} {...props}>
+    <button
+      style={{
+        backgroundColor: disabled ? '#eee' : '#00622d',
+        color: 'white',
+        border: 'none',
+        padding: '15px',
+        borderRadius: '5px',
+        cursor: 'pointer',
+        fontSize: '20px',
+        fontFamily: 'Orbitron, serif',
+        fontWeight: 'bold',
+        width: '186px',
+        boxShadow: '0 4px 0 #6d9ac3'
+      }}
+      onClick={onClick}
+      disabled={disabled}
+      {...props}
+    >
       {children}
-    </Wrapper>
+    </button>
   );
 };
 

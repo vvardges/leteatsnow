@@ -1,21 +1,19 @@
-import { memo, useEffect } from 'react';
-import { useAppContext } from '../../Context';
+'use client';
 
-import snowIcon from './snow.svg';
-import iceIcon from './ice.svg';
-import mouthIcon from './mouth.png';
+import { memo, useEffect } from 'react';
+import { useAppContext } from '../../../context';
 import { useGetDimensions } from '../../hooks/useGetDimensins';
 
-const SnowImgObj = new Image(100, 100);
-SnowImgObj.src = snowIcon;
-
-const LoseImgObj = new Image(100, 100);
-LoseImgObj.src = iceIcon;
-
-const MouthImgObj = new Image(100, 100);
-MouthImgObj.src = mouthIcon;
-
 const Snowfall = ({ canvasRef }) => {
+  const SnowImgObj = new Image(100, 100);
+  SnowImgObj.src = '/snow.svg';
+
+  const LoseImgObj = new Image(100, 100);
+  LoseImgObj.src = '/ice.svg';
+
+  const MouthImgObj = new Image(100, 100);
+  MouthImgObj.src = '/mouth.png';
+
   const { onParticleDelete, score, onPauseGame, paused } = useAppContext();
 
   let timeoutId;
