@@ -1,20 +1,25 @@
 'use client';
 
-import { memo, useEffect } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import { useAppContext } from '../../../context';
 import { useGetDimensions } from '../../hooks/useGetDimensins';
 
 const Snowfall = ({ canvasRef }) => {
-  const SnowImgObj = new Image(100, 100);
-  SnowImgObj.src = '/snow.svg';
-
-  const LoseImgObj = new Image(100, 100);
-  LoseImgObj.src = '/ice.svg';
-
-  const MouthImgObj = new Image(100, 100);
-  MouthImgObj.src = '/mouth.png';
+  const SnowImgObj = useRef(null);
+  const LoseImgObj = useRef(null);
+  const MouthImgObj = useRef(null);
 
   const { onParticleDelete, score, onPauseGame, paused } = useAppContext();
+
+  useEffect(() => {
+    SnowImgObj.current = new Image(100, 100);
+    LoseImgObj.current = new Image(100, 100);
+    MouthImgObj.current = new Image(100, 100);
+
+    SnowImgObj.current.src = '/snow.svg';
+    LoseImgObj.current.src = '/ice.svg';
+    MouthImgObj.current.src = '/mouth.png';
+  }, []);
 
   let timeoutId;
   const handleParticleDelete = (type) => {
@@ -80,7 +85,7 @@ const Snowfall = ({ canvasRef }) => {
 
       particles.forEach((p) => {
         ctx.drawImage(
-          p.type === 'point' ? SnowImgObj : LoseImgObj,
+          p.type === 'point' ? SnowImgObj.current : LoseImgObj.current,
           p.x,
           p.y,
           p.r,
@@ -91,7 +96,7 @@ const Snowfall = ({ canvasRef }) => {
       if (canvasRef.mouthIsLocked) {
         ctx.globalCompositeOperation = 'destination-over';
         ctx.drawImage(
-          MouthImgObj,
+          MouthImgObj.current,
           canvasRef.mouthCoordinates.x - 50,
           canvasRef.mouthCoordinates.y - 50,
           100,
