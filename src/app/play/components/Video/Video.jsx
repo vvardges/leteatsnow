@@ -37,11 +37,13 @@ export default function Video({ canvasRef }) {
   useEffect(() => {
     let camera;
     let faceDetection;
+    let isActive = true;
 
     async function loadMediapipe() {
-      // Load dynamic ESM modules — REQUIRED for Next.js
       const { Camera } = await import('@mediapipe/camera_utils');
       const { FaceDetection } = await import('@mediapipe/face_detection');
+
+      if (!isActive || !webcamRef.current || !webcamRef.current.video) return;
 
       faceDetection = new FaceDetection({
         locateFile: (file) =>
@@ -50,16 +52,21 @@ export default function Video({ canvasRef }) {
 
       faceDetection.setOptions({ model: 'short' });
 
-      // Setup MediaPipe Camera wrapper
       camera = new Camera(webcamRef.current.video, {
         width,
         height,
         async onFrame() {
+          // Guard against unmount / missing video
+          if (!isActive || !webcamRef.current || !webcamRef.current.video) {
+            return;
+          }
+
           await faceDetection.send({ image: webcamRef.current.video });
         },
       });
 
       faceDetection.onResults((res) => {
+        if (!isActive) return;
         handleOnFaceDetected(res);
       });
 
@@ -69,7 +76,10 @@ export default function Video({ canvasRef }) {
     loadMediapipe();
 
     return () => {
+      isActive = false;
       camera?.stop?.();
+      // Optional: free FaceDetection resources
+      faceDetection?.close?.();
     };
   }, [width, height]);
 
