@@ -1,167 +1,93 @@
-'use client';
+import { useEffect, useRef } from 'react';
+import { Application, Sprite, Assets } from 'pixi.js';
 
-import { memo, useEffect, useRef } from 'react';
-import { useAppContext } from '../../../context';
-import { useGetDimensions } from '../../hooks/useGetDimensins';
+export default function Snowfall({canvasRef}) {
+  const containerRef = useRef(null);
+  const flakesRef = useRef([]);
+  const appRef = useRef(null);
 
-const Snowfall = ({ canvasRef }) => {
-  const SnowImgObj = useRef(null);
-  const LoseImgObj = useRef(null);
-  const MouthImgObj = useRef(null);
-
-  const { onParticleDelete, score, onPauseGame, paused } = useAppContext();
-
-  useEffect(() => {
-    SnowImgObj.current = new Image(100, 100);
-    LoseImgObj.current = new Image(100, 100);
-    MouthImgObj.current = new Image(100, 100);
-
-    SnowImgObj.current.src = '/snow.svg';
-    LoseImgObj.current.src = '/ice.svg';
-    MouthImgObj.current.src = '/mouth.png';
-  }, []);
-
-  let timeoutId;
-  const handleParticleDelete = (type) => {
-    if (canvasRef.mouthIsLocked) return;
-
-    if (type === 'loss') canvasRef.mouthIsLocked = true;
-
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => {
-      canvasRef.mouthIsLocked = false;
-    }, 4000);
-
-    onParticleDelete(type);
-  };
-
-  const handlePause = () => {
-    onPauseGame();
+  const resetFlake = (flake, maxW, maxH) => {
+    flake.x = Math.random() * maxW;
+    flake.y = Math.random() * maxH;
+    flake.alpha = 0.7 + Math.random() * 0.3;
+    flake.speed = 1 + Math.random() * 2;
+    //flake.scale.set(0.3 + Math.random() * 0.9);
   };
 
   useEffect(() => {
-    canvasRef.paused = paused;
-  }, [paused]);
+    let destroyed = false;
 
-  useEffect(() => {
-    canvasRef.score = score;
-  }, [score]);
+    (async () => {
+      if (!containerRef.current) return;
 
-  const windowDimensions = useGetDimensions();
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext('2d');
-    const W = windowDimensions.width;
-    const H = windowDimensions.height;
-    canvas.width = W;
-    canvas.height = H;
-
-    const mp = 20; // max particles
-    const particles = [];
-
-    const createParticle = () => {
-      particles.push({
-        x: Math.random() * W, // x-coordinate
-        y: particles.length >= mp ? 0 : Math.random() * H, // y-coordinate
-        r: 50, // radius
-        d: Math.random() * mp, // density
-        type: particles.length % 7 === 0 ? 'loss' : 'point',
-      });
-    };
-
-    // Create particles
-    for (let i = 0; i < mp; i++) {
-      createParticle();
-    }
-
-    let angle = 0;
-
-    // Update and draw particles
-    const draw = () => {
-      ctx.clearRect(0, 0, W, H);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-      ctx.beginPath();
-
-      particles.forEach((p) => {
-        ctx.drawImage(
-          p.type === 'point' ? SnowImgObj.current : LoseImgObj.current,
-          p.x,
-          p.y,
-          p.r,
-          p.r,
-        );
+      const app = new Application();
+      await app.init({
+        backgroundAlpha: 0,
+        antialias: false,
+        powerPreference: 'high-performance',
+        autoDensity: true,
+        resolution: Math.min(window.devicePixelRatio, 2),
       });
 
-      if (canvasRef.mouthIsLocked) {
-        ctx.globalCompositeOperation = 'destination-over';
-        ctx.drawImage(
-          MouthImgObj.current,
-          canvasRef.mouthCoordinates.x - 50,
-          canvasRef.mouthCoordinates.y - 50,
-          100,
-          100,
-        );
-      }
-
-      ctx.fill();
-      updateParticles(particles, W, H, angle);
-      angle += 0.01;
-    };
-
-    // Function to update particle positions
-    const updateParticles = (particles, W, H, angle) => {
-      if (canvasRef.paused) {
+      if (destroyed) {
+        app.destroy(true);
         return;
       }
-      particles.forEach((p, i) => {
-        // Updating X and Y coordinates
-        const speed = Math.ceil(canvasRef.score / 100) * 0.01 + 0.5; // Control the overall speed
-        p.y += (Math.cos(angle + p.d) + 1 + p.r / 10) * speed;
-        p.x += Math.sin(angle) * speed;
 
-        if (!canvasRef.mouthCoordinates) return;
+      appRef.current = app;
+      containerRef.current.appendChild(app.canvas);
 
-        const { x, y } = canvasRef.mouthCoordinates;
-        if (
-          !canvasRef.mouthIsLocked &&
-          p.y > y - 50 &&
-          p.y < y + 50 &&
-          p.x > x - 50 &&
-          p.x < x + 50
-        ) {
-          handleParticleDelete(p.type);
-          createParticle();
-          delete particles[i];
-        }
+      const svgTexture = await Assets.load('/snow.svg');
 
-        // Resetting flakes if they go off screen
-        if (p.x > W + 5 || p.x < -5 || p.y > H) {
-          delete particles[i];
-          createParticle();
-        }
+      const width = app.renderer.width;
+      const height = app.renderer.height;
+
+      for (let i = 0; i < 20; i++) {
+        const flake = new Sprite(svgTexture);
+        flake.width = 100;   // e.g. 20
+        flake.height = 100;  // keep square
+        resetFlake(flake, width, height);
+        flakesRef.current.push(flake);
+        app.stage.addChild(flake);
+      }
+
+      app.ticker.add(() => {
+        const h = app.renderer.height; // in case of resize
+        flakesRef.current.forEach((flake) => {
+          flake.y += flake.speed;
+          flake.x += Math.sin(flake.y * 0.01) * 0.8;
+
+          const mouth = canvasRef.mouthCoordinates;
+          if (flake.y > h || (mouth && flake.x > mouth.x - 50 && flake.x < mouth.x + 50 && flake.y < mouth.y + 50 && flake.y > mouth.y - 50)) {
+            resetFlake(flake, app.renderer.width, 0);
+          }
+        });
       });
+    })();
+
+    return () => {
+      destroyed = true;
+      if (appRef.current) {
+        appRef.current.destroy(true);
+        appRef.current = null;
+      }
+      flakesRef.current = [];
     };
-
-    let animationFrameId;
-
-    const animate = () => {
-      draw();
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => cancelAnimationFrame(animationFrameId);
-  }, [windowDimensions]);
+  }, []);
 
   return (
-    <canvas
-      onClick={handlePause}
-      ref={canvasRef}
-      style={{ position: 'absolute', zIndex: 1 }}
+    <div
+      ref={containerRef}
+      style={{
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        overflow: 'hidden',
+        pointerEvents: 'none', // so touches go to the video
+        zIndex: 2, // make sure it's above the video
+      }}
     />
   );
-};
-
-export default memo(Snowfall);
+}

@@ -86,9 +86,10 @@ export default function Video({ canvasRef }) {
   return (
     <Webcam
       ref={webcamRef}
+      audio={false}
       mirrored
       videoConstraints={{
-        aspectRatio: 0.6666666667,
+        aspectRatio: 1,
       }}
       style={{
         width: `${width}px`,

@@ -8,6 +8,7 @@
     "@mediapipe/face_detection": "^0.4.1646425229",
     "firebase": "^11.2.0",
     "next": "^16.0.8",
+    "pixi.js": "^8.14.3",
     "react": "19.2.1",
     "react-dom": "19.2.1",
     "react-webcam": "^7.2.0"

@@ -36,6 +36,7 @@ main {
 
 a {
     text-decoration: none;
+    text-align: center;
     background-color: #00622d;
     color: white;
     border: none;
