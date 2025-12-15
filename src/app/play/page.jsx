@@ -13,9 +13,9 @@ import Pause from './components/Pause';
 const Page = () => {
   const { onStartGame, paused } = useAppContext();
   const { width, height } = useGetDimensions();
-  useEffect(() => {
-    onStartGame();
-  }, []);
+  // useEffect(() => {
+  //   onStartGame();
+  // }, []);
   const canvasRef = useRef(null);
   return (
     <Game width={width} height={height}>
