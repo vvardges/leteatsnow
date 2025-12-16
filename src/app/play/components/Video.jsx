@@ -5,11 +5,11 @@ import { useEffect, useRef } from 'react';
 import { useAppStore } from '@/app/store/useAppStore';
 
 export default function Video({ onFaceDetected }) {
-  const webcamRef = useRef(null);
   const size = useAppStore(s => s.size);
   // -------------------------------------------------------
   // Setup FaceDetection + Camera dynamically (Next.js safe)
   // -------------------------------------------------------
+  const webcamRef = useRef(null);
   useEffect(() => {
     let camera;
     let faceDetection;
@@ -28,7 +28,6 @@ export default function Video({ onFaceDetected }) {
 
       faceDetection.setOptions({ model: 'short' });
 
-      console.log(size);
       camera = new Camera(webcamRef.current.video, {
         width: size,
         height: size,
@@ -58,7 +57,7 @@ export default function Video({ onFaceDetected }) {
       // Optional: free FaceDetection resources
       faceDetection?.close?.();
     };
-  }, [onFaceDetected]);
+  });
 
   return (
     <Webcam

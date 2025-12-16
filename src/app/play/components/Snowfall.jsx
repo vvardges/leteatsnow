@@ -32,7 +32,7 @@ export default function Snowfall({mouthRef}) {
         antialias: false,
         powerPreference: 'high-performance',
         autoDensity: true,
-        resolution: Math.min(window.devicePixelRatio, 2),
+        resolution: window.devicePixelRatio,
       });
 
       if (destroyed) {
@@ -82,7 +82,7 @@ export default function Snowfall({mouthRef}) {
       }
       flakesRef.current = [];
     };
-  }, [mouthRef]);
+  });
 
   return (
     <div

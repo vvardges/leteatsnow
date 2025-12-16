@@ -11,11 +11,10 @@ import { useAppStore } from '@/app/store/useAppStore';
 const Page = () => {
   const paused = useAppStore(s => s.paused);
   const size = useAppStore(s => s.size);
-
-  const mouthRef = useRef(null);
   // ----------------------------
   // Handle detected face output
   // ----------------------------
+  const mouthRef = useRef(null);
   const handleFaceDetected = ({detections}) => {
     let newX, newY;
 
@@ -24,8 +23,8 @@ const Page = () => {
       newX = (1 - x);
       newY = y;
     } catch (e) {
-      newX = 0;
-      newY = 0;
+      newX = -1000;
+      newY = -1000;
     }
 
     mouthRef.current = {

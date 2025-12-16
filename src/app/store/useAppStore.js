@@ -5,7 +5,7 @@ export const useAppStore = create((set, get) => ({
   lives: 3,
   paused: false,
   level: 1,
-  size: 500,
+  size: 480,
 
   setSize: (size) => set({ size }),
 

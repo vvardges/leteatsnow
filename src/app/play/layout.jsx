@@ -8,9 +8,9 @@ export default function Layout({ children }) {
   const size = useAppStore((s) => s.size);
 
   useEffect(() => {
-    const size = Math.min(window.innerWidth, window.innerHeight, 500);
-    setSize(size);
-  }, [setSize]);
+    const newSize = Math.min(window.innerWidth, window.innerHeight, size);
+    setSize(newSize);
+  }, [setSize, size]);
 
   return (
     <div style={{ position: 'relative', height: size, width: size }}>
