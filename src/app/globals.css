@@ -20,31 +20,13 @@ html {
   font-style: normal;
 }
 
-body,
-html {
-  height: 100vh;
-  width: 100vw;
-}
-
 main {
-    width: 100dvw;
-    height: 100dvh;
+    min-height: 100dvh;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 a {
-    text-decoration: none;
-    text-align: center;
-    background-color: #00622d;
-    color: white;
-    border: none;
-    padding: 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 20px;
-    font-weight: bold;
-    width: 186px;
-    box-shadow: 0 4px 0 #6d9ac3;
+    color: inherit;
 }

@@ -11,7 +11,7 @@ const Button = ({ children, onClick, disabled, ...props }) => {
         fontSize: '20px',
         fontFamily: 'Orbitron, serif',
         fontWeight: 'bold',
-        width: '186px',
+        minWidth: '186px',
         boxShadow: '0 4px 0 #6d9ac3'
       }}
       onClick={onClick}
