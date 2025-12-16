@@ -2,9 +2,11 @@
 
 import Webcam from 'react-webcam';
 import { useEffect, useRef } from 'react';
+import { useAppStore } from '@/app/store/useAppStore';
 
 export default function Video({ onFaceDetected }) {
   const webcamRef = useRef(null);
+  const size = useAppStore(s => s.size);
   // -------------------------------------------------------
   // Setup FaceDetection + Camera dynamically (Next.js safe)
   // -------------------------------------------------------
@@ -26,9 +28,10 @@ export default function Video({ onFaceDetected }) {
 
       faceDetection.setOptions({ model: 'short' });
 
+      console.log(size);
       camera = new Camera(webcamRef.current.video, {
-        width: 320,
-        height: 320,
+        width: size,
+        height: size,
         async onFrame() {
           // Guard against unmount / missing video
           if (!isActive || !webcamRef.current || !webcamRef.current.video) {

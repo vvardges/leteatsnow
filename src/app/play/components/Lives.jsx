@@ -1,7 +1,7 @@
-import { useAppContext } from '../../context';
+import { useAppStore } from '@/app/store/useAppStore';
 
 const Lives = () => {
-  const { lives } = useAppContext();
+  const lives = useAppStore((s) => s.lives);
   return (
     <div style={{
       position: 'absolute',

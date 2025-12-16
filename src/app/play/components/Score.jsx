@@ -1,7 +1,7 @@
-import { useAppContext } from '../../context';
+import { useAppStore } from '@/app/store/useAppStore';
 
 const Score = () => {
-  const { score } = useAppContext();
+  const score = useAppStore((s) => s.score);
   return (
     <div style={{
       position: 'absolute',

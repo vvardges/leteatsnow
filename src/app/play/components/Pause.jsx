@@ -1,10 +1,10 @@
-import { useAppContext } from '../../context';
 import Button from '../../../components/Button';
 import { useRouter } from 'next/navigation';
 import Box from '../../../components/Box';
+import { useAppStore } from '@/app/store/useAppStore';
 
 const Pause = () => {
-  const { onResume } = useAppContext();
+  const onResume = useAppStore(s => s.onResume);
   const { push } = useRouter();
 
   return (

@@ -1,6 +1,5 @@
 'use client';
 
-import { useAppContext } from '../context';
 import Layout from '../../components/Layout';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
@@ -8,10 +7,11 @@ import Box from '../../components/Box';
 import { useState } from 'react';
 import { submitScore } from '../services';
 import { useRouter } from 'next/navigation';
+import { useAppStore } from '@/app/store/useAppStore';
 
 const Page = () => {
   const { push } = useRouter();
-  const { score } = useAppContext();
+  const score = useAppStore((s) => s.score);
   const [name, setName] = useState('');
 
   const handleSubmit = () => {

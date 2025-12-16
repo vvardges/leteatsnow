@@ -1,7 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { Application, Sprite, Assets } from 'pixi.js';
+import { useAppStore } from '@/app/store/useAppStore';
 
 export default function Snowfall({mouthRef}) {
+  const addScore = useAppStore((s) => s.addScore);
+  const size = useAppStore(s => s.size);
+
   const containerRef = useRef(null);
   const flakesRef = useRef([]);
   const appRef = useRef(null);
@@ -22,8 +26,8 @@ export default function Snowfall({mouthRef}) {
 
       const app = new Application();
       await app.init({
-        width: 320,
-        height: 320,
+        width: size,
+        height: size,
         backgroundAlpha: 0,
         antialias: false,
         powerPreference: 'high-performance',
@@ -60,8 +64,11 @@ export default function Snowfall({mouthRef}) {
           flake.x += Math.sin(flake.y * 0.01) * 0.8;
 
           const mouth = mouthRef.current;
-          if (flake.y > h || (mouth && flake.x > mouth.x - 50 && flake.x < mouth.x + 50 && flake.y < mouth.y + 50 && flake.y > mouth.y - 50)) {
+          if (flake.y > h) {
             resetFlake(flake, app.renderer.width, 0);
+          } else if (mouth && flake.x > mouth.x - 50 && flake.x < mouth.x + 50 && flake.y < mouth.y + 50 && flake.y > mouth.y - 50) {
+            resetFlake(flake, app.renderer.width, 0);
+            addScore();
           }
         });
       });
@@ -82,6 +89,8 @@ export default function Snowfall({mouthRef}) {
       ref={containerRef}
       style={{
         position: 'absolute',
+        width: '100%',
+        height: '100%',
         top: 0,
         left: 0,
         overflow: 'hidden',

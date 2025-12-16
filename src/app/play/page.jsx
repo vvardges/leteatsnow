@@ -2,21 +2,17 @@
 
 import Score from './components/Score';
 import Lives from './components/Lives';
-import Video from './components/Video/Video';
+import Video from './components/Video';
 import Snowfall from './components/Snowfall';
-import { useEffect, useRef } from 'react';
-import { useAppContext } from '../context';
-import Pause from './components/Pause';
+import { useRef } from 'react';
+import Pause from '@/app/play/components/Pause';
+import { useAppStore } from '@/app/store/useAppStore';
 
 const Page = () => {
-  const { onStartGame, paused } = useAppContext();
-
-  useEffect(() => {
-    //onStartGame();
-  }, []);
+  const paused = useAppStore(s => s.paused);
+  const size = useAppStore(s => s.size);
 
   const mouthRef = useRef(null);
-
   // ----------------------------
   // Handle detected face output
   // ----------------------------
@@ -33,19 +29,19 @@ const Page = () => {
     }
 
     mouthRef.current = {
-      x: 320 * newX,
-      y: 320 * newY,
+      x: size * newX,
+      y: size * newY,
     };
   };
 
   return (
-    <div style={{ position: 'relative', height: 320, width: 320 }}>
+    <>
       <Score />
       <Lives />
       <Video onFaceDetected={handleFaceDetected} />
       <Snowfall mouthRef={mouthRef} />
       {paused && <Pause />}
-    </div>
+    </>
   );
 };
 
