@@ -33,8 +33,8 @@ const Page = () => {
     }
 
     mouthRef.current = {
-      x: (Math.min(window.innerWidth, 640) * newX),
-      y: (480 * newY),
+      x: 320 * newX,
+      y: 320 * newY,
     };
   };
 
