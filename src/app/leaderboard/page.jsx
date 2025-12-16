@@ -1,14 +1,17 @@
-import Layout from '../components/Layout';
+'use client';
+
+import Layout from '../../components/Layout';
 import { useEffect, useState } from 'react';
-import { getTopScores } from '../services';
-import Box from '../components/Box';
-import Button from '../components/Button';
-import { useNavigate } from 'react-router';
+import { getTopScores, track } from '../services';
+import Box from '../../components/Box';
+import Button from '../../components/Button';
+import { useRouter } from 'next/navigation';
 
 const Results = () => {
-  const navigate = useNavigate();
+  const { push } = useRouter();
   const [scores, setScores] = useState([]);
   useEffect(() => {
+    track('page_view', { page: 'leaderboard' });
     getTopScores().then((scores) => setScores(scores));
   }, []);
 
@@ -29,7 +32,10 @@ const Results = () => {
             </li>
           ))}
         </ol>
-        <Button onClick={() => navigate('/')}>Back</Button>
+        <Button onClick={() => {
+          track('leaderboard_back_clicked');
+          push('/');
+        }}>Back</Button>
       </Box>
     </Layout>
   );

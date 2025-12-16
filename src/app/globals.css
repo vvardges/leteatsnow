@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
-
 body {
   margin: 0;
   background: #7dc8e7;
@@ -22,20 +20,13 @@ html {
   font-style: normal;
 }
 
-body,
-html {
-  height: 100vh;
-  width: 100vw;
-}
-
-#root {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
+main {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 a {
-  color: white;
+    color: inherit;
 }
