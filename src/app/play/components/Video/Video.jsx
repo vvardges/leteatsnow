@@ -27,8 +27,8 @@ export default function Video({ onFaceDetected }) {
       faceDetection.setOptions({ model: 'short' });
 
       camera = new Camera(webcamRef.current.video, {
-        width: Math.min(window.innerWidth, 640),
-        height: 480,
+        width: 320,
+        height: 320,
         async onFrame() {
           // Guard against unmount / missing video
           if (!isActive || !webcamRef.current || !webcamRef.current.video) {
@@ -62,6 +62,7 @@ export default function Video({ onFaceDetected }) {
       ref={webcamRef}
       audio={false}
       mirrored
+      videoConstraints={{ aspectRatio: 1 }}
     />
   );
 }

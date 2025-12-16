@@ -22,8 +22,8 @@ export default function Snowfall({mouthRef}) {
 
       const app = new Application();
       await app.init({
-        width: Math.min(window.innerWidth, 640),
-        height: 480,
+        width: 320,
+        height: 320,
         backgroundAlpha: 0,
         antialias: false,
         powerPreference: 'high-performance',

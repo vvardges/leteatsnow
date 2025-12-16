@@ -39,7 +39,7 @@ const Page = () => {
   };
 
   return (
-    <div style={{ position: 'relative', height: 480, width: 640, maxWidth: '100%' }}>
+    <div style={{ position: 'relative', height: 320, width: 320 }}>
       <Score />
       <Lives />
       <Video onFaceDetected={handleFaceDetected} />
