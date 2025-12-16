@@ -4,13 +4,18 @@ import Score from './components/Score';
 import Lives from './components/Lives';
 import Video from './components/Video';
 import Snowfall from './components/Snowfall';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import Pause from '@/app/play/components/Pause';
 import { useAppStore } from '@/app/store/useAppStore';
+import { track } from '../services';
 
 const Page = () => {
   const paused = useAppStore((s) => s.paused);
   const size = useAppStore((s) => s.size);
+
+  useEffect(() => {
+    track('game_started', { timestamp: Date.now() });
+  }, []);
   // ----------------------------
   // Handle detected face output
   // ----------------------------

@@ -2,10 +2,26 @@ import Button from '../../../components/Button';
 import { useRouter } from 'next/navigation';
 import Box from '../../../components/Box';
 import { useAppStore } from '@/app/store/useAppStore';
+import { track } from '@/app/services';
+import { useEffect } from 'react';
 
 const Pause = () => {
   const onResume = useAppStore(s => s.onResume);
   const { push } = useRouter();
+
+  useEffect(() => {
+    track('game_paused');
+  }, []);
+
+  const handleResume = () => {
+    track('game_resumed');
+    onResume();
+  };
+
+  const handleHome = () => {
+    track('game_quit', { from: 'pause' });
+    push('/');
+  };
 
   return (
     <div style={{
@@ -24,8 +40,8 @@ const Pause = () => {
     }}>
       <Box>
         <h2>Let eat snow!</h2>
-        <Button onClick={onResume}>Resume</Button>
-        <Button onClick={() => push('/')}>Home</Button>
+        <Button onClick={handleResume}>Resume</Button>
+        <Button onClick={handleHome}>Home</Button>
       </Box>
     </div>
   );

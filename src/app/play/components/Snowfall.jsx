@@ -1,11 +1,13 @@
 import { useEffect, useRef } from 'react';
 import { Application, Sprite, Assets } from 'pixi.js';
 import { useAppStore } from '@/app/store/useAppStore';
+import { track } from '@/app/services';
 
 export default function Snowfall({ mouthRef }) {
   const addScore = useAppStore((s) => s.addScore);
   const subtractLive = useAppStore((s) => s.subtractLive);
   const size = useAppStore((s) => s.size);
+  const spriteSize = size / 6;
 
   const containerRef = useRef(null);
   const flakesRef = useRef([]);
@@ -60,8 +62,8 @@ export default function Snowfall({ mouthRef }) {
       // --- Snow (score)
       for (let i = 0; i < 20; i++) {
         const flake = new Sprite(snowTexture);
-        flake.width = 100;
-        flake.height = 100;
+        flake.width = spriteSize;
+        flake.height = spriteSize;
         resetFallingSprite(flake, width, Math.random() * height);
         flakesRef.current.push(flake);
         app.stage.addChild(flake);
@@ -70,8 +72,8 @@ export default function Snowfall({ mouthRef }) {
       // --- Ice (subtract life) - count = 3
       for (let i = 0; i < 3; i++) {
         const ice = new Sprite(iceTexture);
-        ice.width = 100;
-        ice.height = 100;
+        ice.width = spriteSize;
+        ice.height = spriteSize;
         resetIce(ice, width, Math.random() * height);
         iceRef.current.push(ice);
         app.stage.addChild(ice);
@@ -100,6 +102,7 @@ export default function Snowfall({ mouthRef }) {
           } else if (isMouthHit(flake, mouth)) {
             resetFallingSprite(flake, app.renderer.width, 0);
             addScore();
+            track('snowflake_eaten');
           }
         });
 
@@ -111,6 +114,7 @@ export default function Snowfall({ mouthRef }) {
           } else if (isMouthHit(ice, mouth)) {
             resetIce(ice, app.renderer.width, 0);
             subtractLive();
+            track('ice_eaten');
           }
         });
       });

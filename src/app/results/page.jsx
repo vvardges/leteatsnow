@@ -4,8 +4,8 @@ import Layout from '../../components/Layout';
 import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Box from '../../components/Box';
-import { useState } from 'react';
-import { submitScore } from '../services';
+import { useState, useEffect } from 'react';
+import { submitScore, track } from '../services';
 import { useRouter } from 'next/navigation';
 import { useAppStore } from '@/app/store/useAppStore';
 
@@ -15,12 +15,18 @@ const Page = () => {
   const resetGame = useAppStore((s) => s.resetGame);
   const [name, setName] = useState('');
 
+  useEffect(() => {
+    track('game_ended', { score });
+  }, [score]);
+
   const handleBack = () => {
+    track('results_back_clicked');
     resetGame();
     push('/');
   };
 
   const handleSubmit = () => {
+    track('score_submit_attempted', { score, nickname: name });
     submitScore(name, score);
     resetGame();
     push('/leaderboard');
