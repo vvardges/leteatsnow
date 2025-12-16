@@ -42,8 +42,7 @@ export default function PrivacyPage() {
           <br />
           <strong>Country:</strong> Armenia
           <br />
-          <strong>Contact email:</strong> <a href="vardanyan@vardges.dev">vardanyan@vardges.dev</a>{' '}
-          <em>(replace with your real email)</em>
+          <strong>Contact email:</strong> <a href="mailto:vardanyan@vardges.dev">vardanyan@vardges.dev</a>{' '}
         </p>
       </Section>
 
@@ -182,14 +181,13 @@ export default function PrivacyPage() {
         </ul>
         <p>
           To exercise your rights, contact{' '}
-          <a href="mailto:privacy@LetEatSnow.com">privacy@LetEatSnow.com</a>{' '}
-          <em>(replace with your real email)</em>.
+          <a href="mailto:vardanyan@vardges.dev">vardanyan@vardges.dev</a>{' '}
         </p>
       </Section>
 
       <Section id="children" title="9) Children">
         <p>
-          The Service is not intended for children under the age of <strong>[insert age]</strong>. We do not knowingly
+          The Service is not intended for children under the age of 16. We do not knowingly
           collect personal data from children. If you believe a child provided personal data, contact us to request
           deletion.
         </p>

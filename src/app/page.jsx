@@ -29,7 +29,6 @@ const Page = () => {
           <Button onClick={() => handleNavigation('hints')}>Hints</Button>
           <Button onClick={() => handleNavigation('privacy')}>Privacy</Button>
         </Box>
-        @Vke
       </Box>
     </Layout>
   );
