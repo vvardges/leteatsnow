@@ -9,18 +9,18 @@ import Pause from '@/app/play/components/Pause';
 import { useAppStore } from '@/app/store/useAppStore';
 
 const Page = () => {
-  const paused = useAppStore(s => s.paused);
-  const size = useAppStore(s => s.size);
+  const paused = useAppStore((s) => s.paused);
+  const size = useAppStore((s) => s.size);
   // ----------------------------
   // Handle detected face output
   // ----------------------------
   const mouthRef = useRef(null);
-  const handleFaceDetected = ({detections}) => {
+  const handleFaceDetected = ({ detections }) => {
     let newX, newY;
 
     try {
       const { x, y } = detections[0].landmarks[3];
-      newX = (1 - x);
+      newX = 1 - x;
       newY = y;
     } catch (e) {
       newX = -1000;

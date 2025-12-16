@@ -18,12 +18,8 @@ export const useAppStore = create((set, get) => ({
       level: level + 1, // matches prior behavior: level becomes 2 after first score
     });
   },
-
   subtractLive: () => set((s) => ({ lives: s.lives - 1 })),
-
   onPause: () => set({ paused: true }),
   onResume: () => set({ paused: false }),
-
-  // optional helpers if you want them later:
-  // resetGame: () => set({ score: 0, lives: 3, paused: false, level: 1 }),
+  resetGame: () => set({ score: 0, lives: 3, paused: false, level: 1 }),
 }));

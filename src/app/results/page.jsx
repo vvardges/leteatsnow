@@ -12,10 +12,17 @@ import { useAppStore } from '@/app/store/useAppStore';
 const Page = () => {
   const { push } = useRouter();
   const score = useAppStore((s) => s.score);
+  const resetGame = useAppStore((s) => s.resetGame);
   const [name, setName] = useState('');
+
+  const handleBack = () => {
+    resetGame();
+    push('/');
+  };
 
   const handleSubmit = () => {
     submitScore(name, score);
+    resetGame();
     push('/leaderboard');
   };
 
@@ -31,6 +38,9 @@ const Page = () => {
         />
         <Button disabled={!name} onClick={handleSubmit}>
           Submit
+        </Button>
+        <Button onClick={handleBack}>
+          Back to Home
         </Button>
       </Box>
     </Layout>
