@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Application, Sprite, Assets } from 'pixi.js';
 
-export default function Snowfall({canvasRef}) {
+export default function Snowfall({mouthRef}) {
   const containerRef = useRef(null);
   const flakesRef = useRef([]);
   const appRef = useRef(null);
@@ -22,6 +22,8 @@ export default function Snowfall({canvasRef}) {
 
       const app = new Application();
       await app.init({
+        width: Math.min(window.innerWidth, 640),
+        height: 480,
         backgroundAlpha: 0,
         antialias: false,
         powerPreference: 'high-performance',
@@ -57,7 +59,7 @@ export default function Snowfall({canvasRef}) {
           flake.y += flake.speed;
           flake.x += Math.sin(flake.y * 0.01) * 0.8;
 
-          const mouth = canvasRef.mouthCoordinates;
+          const mouth = mouthRef.current;
           if (flake.y > h || (mouth && flake.x > mouth.x - 50 && flake.x < mouth.x + 50 && flake.y < mouth.y + 50 && flake.y > mouth.y - 50)) {
             resetFlake(flake, app.renderer.width, 0);
           }
@@ -73,14 +75,12 @@ export default function Snowfall({canvasRef}) {
       }
       flakesRef.current = [];
     };
-  }, []);
+  }, [mouthRef]);
 
   return (
     <div
       ref={containerRef}
       style={{
-        width: '100%',
-        height: '100%',
         position: 'absolute',
         top: 0,
         left: 0,

@@ -2,35 +2,9 @@
 
 import Webcam from 'react-webcam';
 import { useEffect, useRef } from 'react';
-import { useGetDimensions } from '../../hooks/useGetDimensins';
 
-export default function Video({ canvasRef }) {
-  const windowDimensions = useGetDimensions();
-  const { width, height } = windowDimensions;
-
+export default function Video({ onFaceDetected }) {
   const webcamRef = useRef(null);
-
-  // ----------------------------
-  // Handle detected face output
-  // ----------------------------
-  const handleOnFaceDetected = ({ detections }) => {
-    let newX, newY;
-
-    try {
-      const { x, y } = detections[0].landmarks[3];
-      newX = (1 - x) * 100;
-      newY = y * 100;
-    } catch (e) {
-      newX = width;
-      newY = height;
-    }
-
-    canvasRef.mouthCoordinates = {
-      x: (width * newX) / 100,
-      y: (height * newY) / 100,
-    };
-  };
-
   // -------------------------------------------------------
   // Setup FaceDetection + Camera dynamically (Next.js safe)
   // -------------------------------------------------------
@@ -53,8 +27,8 @@ export default function Video({ canvasRef }) {
       faceDetection.setOptions({ model: 'short' });
 
       camera = new Camera(webcamRef.current.video, {
-        width,
-        height,
+        width: Math.min(window.innerWidth, 640),
+        height: 480,
         async onFrame() {
           // Guard against unmount / missing video
           if (!isActive || !webcamRef.current || !webcamRef.current.video) {
@@ -67,10 +41,10 @@ export default function Video({ canvasRef }) {
 
       faceDetection.onResults((res) => {
         if (!isActive) return;
-        handleOnFaceDetected(res);
+        onFaceDetected(res);
       });
 
-      camera.start();
+      await camera.start();
     }
 
     loadMediapipe();
@@ -81,22 +55,13 @@ export default function Video({ canvasRef }) {
       // Optional: free FaceDetection resources
       faceDetection?.close?.();
     };
-  }, [width, height]);
+  }, [onFaceDetected]);
 
   return (
     <Webcam
       ref={webcamRef}
       audio={false}
       mirrored
-      videoConstraints={{
-        aspectRatio: 1,
-      }}
-      style={{
-        width: `${width}px`,
-        height: `${height}px`,
-        position: 'absolute',
-        zIndex: 0,
-      }}
     />
   );
 }
