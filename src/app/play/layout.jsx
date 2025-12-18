@@ -23,7 +23,7 @@ export default function Layout({ children }) {
   }, [setSize, size]);
 
   return (
-    <div style={{ position: 'relative', height: size, width: size }}>
+    <div style={{ position: 'relative', height: size, width: size, background: 'black' }}>
       {children}
     </div>
   );

@@ -10,7 +10,6 @@ import { useAppStore } from '@/app/store/useAppStore';
 import { track } from '../services';
 
 const Page = () => {
-  const paused = useAppStore((s) => s.paused);
   const size = useAppStore((s) => s.size);
 
   useEffect(() => {
@@ -21,6 +20,10 @@ const Page = () => {
   // ----------------------------
   const mouthRef = useRef(null);
   const handleFaceDetected = ({ detections }) => {
+    if(detections.length === 0) return;
+
+    //setIsMouthDetected(true);
+
     let newX, newY;
 
     try {
@@ -35,6 +38,7 @@ const Page = () => {
     mouthRef.current = {
       x: size * newX,
       y: size * newY,
+      paused: mouthRef?.current?.paused || false
     };
   };
 
@@ -44,7 +48,7 @@ const Page = () => {
       <Lives />
       <Video onFaceDetected={handleFaceDetected} />
       <Snowfall mouthRef={mouthRef} />
-      {paused && <Pause />}
+      <Pause mouthRef={mouthRef} />
     </>
   );
 };

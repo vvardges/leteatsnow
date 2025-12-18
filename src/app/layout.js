@@ -4,7 +4,7 @@ import './globals.css';
 const orbitron = Orbitron({
     subsets: ['latin'],
     variable: '--font-orbitron',
-    weight: ['400', '700'], // choose weights you need
+    weight: ['400', '500', '700'], // choose weights you need
 });
 
 export const metadata = {

@@ -28,7 +28,6 @@ const Page = () => {
   const handleSubmit = () => {
     track('score_submit_attempted', { score, nickname: name });
     submitScore(name, score);
-    resetGame();
     push('/leaderboard');
   };
 

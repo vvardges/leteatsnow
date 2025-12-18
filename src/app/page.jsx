@@ -6,11 +6,14 @@ import { track } from './services';
 import { useEffect } from 'react';
 import Button from '../components/Button';
 import { useRouter } from 'next/navigation';
+import { useAppStore } from '@/app/store/useAppStore';
 
 const Page = () => {
+  const resetGame = useAppStore((s) => s.resetGame);
   const router = useRouter();
   useEffect(() => {
     track('page_view', { page: 'home' });
+    resetGame();
   }, []);
 
   const handleNavigation = (destination) => {

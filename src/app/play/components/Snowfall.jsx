@@ -18,14 +18,14 @@ export default function Snowfall({ mouthRef }) {
     sprite.x = Math.random() * maxW;
     sprite.y = startY;
     sprite.alpha = 0.7 + Math.random() * 0.3;
-    sprite.speed = 2 + Math.random() * 2;
+    sprite.speed = 0.5 + Math.random();
   };
 
-  const resetIce = (ice, maxW, startY) => {
+  const resetIce = (ice, maxW) => {
     ice.x = Math.random() * maxW;
-    ice.y = startY;
+    ice.y = 0;
     ice.alpha = 1;
-    ice.speed = 3 + Math.random() * 3;
+    ice.speed = 1 + Math.random() * 2;
   };
 
   useEffect(() => {
@@ -90,6 +90,8 @@ export default function Snowfall({ mouthRef }) {
       };
 
       app.ticker.add(() => {
+        if (mouthRef?.current?.paused) return;
+
         const h = app.renderer.height;
         const mouth = mouthRef.current;
 
@@ -106,17 +108,20 @@ export default function Snowfall({ mouthRef }) {
           }
         });
 
-        iceRef.current.forEach((ice) => {
-          ice.y += ice.speed;
+        if(mouthRef.current){
+          iceRef.current.forEach((ice) => {
+            ice.y += ice.speed;
 
-          if (ice.y > h) {
-            resetIce(ice, app.renderer.width, 0);
-          } else if (isMouthHit(ice, mouth)) {
-            resetIce(ice, app.renderer.width, 0);
-            subtractLive();
-            track('ice_eaten');
-          }
-        });
+            if (ice.y > h) {
+              resetIce(ice, app.renderer.width);
+            } else if (isMouthHit(ice, mouth)) {
+              resetIce(ice, app.renderer.width);
+              //subtractLive();
+              track('ice_eaten');
+            }
+          });
+        }
+
       });
     })();
 
