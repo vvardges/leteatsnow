@@ -19,12 +19,6 @@ export default function PrivacyPage() {
   return (
     <div style={{ padding: 24, maxWidth: 720 }}>
       <header>
-        <div style={{ marginBottom: 16 }}>
-          <Button onClick={() => router.push('/')}>
-            ← Back to Home
-          </Button>
-        </div>
-
         <h1>Privacy Policy (EU/EEA – GDPR)</h1>
         <p>
           <strong>Last updated:</strong> {lastUpdated}
@@ -218,6 +212,11 @@ export default function PrivacyPage() {
             </a>
           </li>
         </ul>
+        <div style={{ marginBottom: 16, marginTop: 32 }}>
+          <Button onClick={() => router.push('/')}>
+            ← Back to Home
+          </Button>
+        </div>
       </footer>
     </div>
   );

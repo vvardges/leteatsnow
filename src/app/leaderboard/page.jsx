@@ -10,18 +10,19 @@ import { useRouter } from 'next/navigation';
 const Results = () => {
   const { push } = useRouter();
   const [scores, setScores] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true);
     track('page_view', { page: 'leaderboard' });
-    getTopScores().then((scores) => setScores(scores));
+    getTopScores().then((scores) => setScores(scores)).finally(() => setLoading(false));
   }, []);
-
-  if (!scores.length) return null;
 
   return (
     <Layout>
       <Box>
         <h2>Leaderboard</h2>
         <ol>
+          {loading && Array(10).fill(null).map((_, index) => <li key={index}>❄❄❄❄❄❄❄{'.'.repeat((30))}❄❄❄</li>)}
           {scores.map(({ name, score }, index) => (
             <li key={index}>
               {`

@@ -2,14 +2,21 @@
 
 import Layout from '../../components/Layout';
 import Box from '../../components/Box';
-import Link from 'next/link';
 import { track } from '../services';
 import { useEffect } from 'react';
+import Button from '@/components/Button';
+import { useRouter } from 'next/navigation';
 
 const Page = () => {
+  const router = useRouter();
   useEffect(() => {
     track('page_view', { page: 'hints' });
   }, []);
+
+  const handleClick = () => {
+    track('hints_back_clicked');
+    router.push('/');
+  };
 
   return (
     <Layout>
@@ -20,7 +27,7 @@ const Page = () => {
           <li>Avoid eating ice blocks.</li>
           <li>Click anywhere on the screen to pause the game.</li>
         </ul>
-        <Link href="/" onClick={() => track('hints_back_clicked')}>Back</Link>
+        <Button onClick={handleClick}>Back</Button>
       </Box>
     </Layout>
   );
