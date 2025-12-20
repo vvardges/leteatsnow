@@ -43,7 +43,7 @@ export default function Video({ onFaceDetected }) {
         height: size,
         async onFrame() {
           if (!isActive) return;
-          await faceDetection.send({ image: webcamRef.current.video });
+          await faceDetection.send({ image: webcamRef?.current?.video });
         },
       });
 

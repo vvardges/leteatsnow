@@ -8,6 +8,7 @@ import { useRef, useEffect } from 'react';
 import Pause from '@/app/play/components/Pause';
 import { useAppStore } from '@/app/store/useAppStore';
 import { track } from '../services';
+import Visualizer from '@/app/play/components/Visualizer';
 
 const Page = () => {
   const size = useAppStore((s) => s.size);
@@ -38,7 +39,8 @@ const Page = () => {
     mouthRef.current = {
       x: size * newX,
       y: size * newY,
-      paused: mouthRef?.current?.paused || false
+      paused: mouthRef?.current?.paused || false,
+      detections: detections,
     };
   };
 
@@ -47,6 +49,7 @@ const Page = () => {
       <Score />
       <Lives />
       <Video onFaceDetected={handleFaceDetected} />
+      {/*<Visualizer mouthRef={mouthRef} />*/}
       <Snowfall mouthRef={mouthRef} />
       <Pause mouthRef={mouthRef} />
     </>

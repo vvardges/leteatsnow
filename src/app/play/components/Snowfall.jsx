@@ -82,10 +82,10 @@ export default function Snowfall({ mouthRef }) {
       const isMouthHit = (sprite, mouth) => {
         return (
           mouth &&
-          sprite.x > mouth.x - 50 &&
-          sprite.x < mouth.x + 50 &&
-          sprite.y < mouth.y + 50 &&
-          sprite.y > mouth.y - 50
+          sprite.x + spriteSize / 2 > mouth.x - 25 &&
+          sprite.x + spriteSize / 2 < mouth.x + 25 &&
+          sprite.y + spriteSize < mouth.y + 25 &&
+          sprite.y + spriteSize > mouth.y + 5
         );
       };
 
@@ -116,7 +116,7 @@ export default function Snowfall({ mouthRef }) {
               resetIce(ice, app.renderer.width);
             } else if (isMouthHit(ice, mouth)) {
               resetIce(ice, app.renderer.width);
-              //subtractLive();
+              subtractLive();
               track('ice_eaten');
             }
           });
